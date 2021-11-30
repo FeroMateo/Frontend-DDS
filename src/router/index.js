@@ -69,7 +69,14 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/EncontreMascota.vue')
     }
-  }
+  },
+  {
+    path: '/adoptar',
+    name: 'Adoptar',
+    component: function () {
+      return import(/* webpackChunkName: "about" */ '../views/QuieroAdoptar.vue')
+    }
+  },
 ]
 
 const router = new VueRouter({
