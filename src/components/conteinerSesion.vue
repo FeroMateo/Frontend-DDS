@@ -17,7 +17,6 @@
         <v-text-field 
           v-model="usuario" 
           label="nombre"
-          required
         ></v-text-field>
 
         </v-col>
@@ -31,7 +30,6 @@
           v-model="password" 
           type="password"
           label="contraseña"
-          required
         ></v-text-field>
         </v-col>
 
@@ -44,16 +42,41 @@
 </template>
 
 <script>
+
 export default {
   data: () => ({
-    usuario: "",
-    password: "",
-    mensaje: "No estoy logueado",
+      usuario: "",
+      password: "",
+      mensaje: "No estoy logueado",    
   }),
   methods: {
     login: function () {
-      this.$router.push({ name: "Home" });
-    },
+                fetch("http://localhost:8080/login", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: this.usuario,
+                        password: this.password
+                    })
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                        localStorage.setItem("IDSESION",datos) //guarda ID
+                        console.log(datos)
+                    })
+            },
+    prueba: function () {
+                fetch("http://localhost:8080/login", {
+                    method: "GET",
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                        localStorage.setItem("IDSESION", datos.idSesion) //guarda ID
+                        console.log(datos.idSesion)
+                    })
+            },
   },
 };
 </script>

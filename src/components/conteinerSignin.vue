@@ -64,8 +64,32 @@ export default {
   }),
   methods: {
     login: function () {
-      this.$router.push({ name: "Home" });
-    },
+                fetch("http://localhost:8080/login", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: this.usuario,
+                        password: this.password
+                    })
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                        localStorage.setItem("IDSESION", datos.idSesion) //guarda ID
+                        console.log(datos.idSesion)
+                    })
+            },
+    prueba: function () {
+                fetch("http://localhost:8080/login", {
+                    method: "GET",
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                        localStorage.setItem("IDSESION", datos.idSesion) //guarda ID
+                        console.log(datos.idSesion)
+                    })
+            },
   },
 };
 </script>
