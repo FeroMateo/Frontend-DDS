@@ -32,28 +32,83 @@
         <v-card
         elevation="4"
         outlined
+        max-width="600"
+        class="mx-auto"
         >
-      <input type="text" v-model="nombre" placeholder="Nombre">
-      <input type="text" v-model="apellido" placeholder="Apellido">
-      <input type="text" v-model="tipo" placeholder="Tipo de documento">
-      <input type="text" v-model="numero" placeholder="Numero de documento">
-      <input type="text" v-model="telefono" placeholder="Numero de telefono">
-      <input type="text" v-model="email" placeholder="E-Mail">
+      <v-text-field
+        label="Nombre"
+        required
+        v-model="nombre"
+      ></v-text-field>
+
+      <v-text-field
+        label="Apellido"
+        required
+        v-model="apellido"
+      ></v-text-field>
+
+      <v-text-field
+        label="Tipo Documento"
+        required
+        v-model="tipoDocumento"
+      ></v-text-field>
+
+      <v-text-field
+        label="Numero Documento"
+        required
+        v-model="numeroDocumento"
+      ></v-text-field>
+
+      <v-text-field
+        label="Email"
+        required
+        v-model="email"
+      ></v-text-field>
+
+      <v-text-field
+        label="Fecha de nacimiento"
+        required
+        v-model="fechaNacimiento"
+      ></v-text-field>
+
+      <v-text-field
+        label="Telefono"
+        required
+        v-model="telefono"
+      ></v-text-field>
+      <v-row>
+      <v-col> <agregar-contacto
+        :nombreContacto.sync="nombreContacto"
+        :apellidoContacto.sync="apellidoContacto"
+        :emailContacto.sync="emailContacto"
+        :telefonoContacto.sync="telefonoContacto"
+        :idsFormaNotificacionContacto.sync="idsFormaNotificacionContacto"
+      ></agregar-contacto></v-col>
+      <v-col> <agregar-domicilio
+        :calleDomicilio.sync="calleDomicilio"
+        :alturaDomicilio.sync="alturaDomicilio"
+        :pisoDomicilio.sync="pisoDomicilio"
+        :departamentoDomicilio.sync="departamentoDomicilio"
+      ></agregar-domicilio></v-col>
+      </v-row>
       <v-row align="center">
       <v-col cols="12">
       <v-select
         :items="items"
         :menu-props="{ top: true, offsetY: true }"
         label="Label"
+    
       ></v-select>
+
+     
     </v-col>
+
+    
+
    <!--AGREGAR CONTACTO-->
   </v-row>
     
     </v-card>
-    
-        
-      
         <v-btn
           color="primary"
           @click="persistirPersona"
@@ -71,13 +126,39 @@
         <v-card
         elevation="4"
         outlined
+        max-width="600"
+        class="mx-auto"
     >
-    <input type="text" v-model="nombreM" placeholder="Nombre">
-    <input type="text" v-model="apodo" placeholder="Apodo">
-    <input type="text" v-model="edadAproximada" placeholder="Edad aproximada">
-    <input type="text" v-model="sexo" placeholder="Sexo">
-    <input type="text" v-model="descripcionFisica" placeholder="Descripcion aproximada">
+    <v-text-field
+        label="Nombre"
+        required
+        v-model="nombreM"
+    ></v-text-field>
 
+    <v-text-field
+        label="Apodo"
+        required
+        v-model="apodo"
+    ></v-text-field>
+
+    <v-text-field
+        label="Edad Aproximada"
+        required
+        v-model="edadAproximada"
+    ></v-text-field>
+
+    <v-text-field
+        label="Sexo"
+        required
+        v-model="sexo"
+    ></v-text-field>
+
+    <v-text-field
+        label="Descripcion Aproximada"
+        required
+        v-model="descripcionFisica"
+    ></v-text-field>
+  
     <v-row align="center">
     <v-col cols="12">
       <v-select
@@ -129,10 +210,13 @@
 </template>
 
 <script>
+  import AgregarContacto from '../components/agregarContacto.vue'
+  import AgregarDomicilio from '../components/agregarDomicilio.vue'
+
   export default {
     data:() =>({
       e1:1,
-      items: ['WP','MAIL','SMS'],
+      items: ['1','2','3'],
       especies:['GATO','PERRO'],
     }),
 
@@ -141,12 +225,27 @@
       duenio:{
         nombre:"",
         apellido:"",
-        tipo:"",
-        numero:"",
+        tipoDocumento:"",
+        numeroDocumento:"",
         telefono:"",
         email:"",
-        formaNotif:[1],
-        contactos:[],
+        fechaNacimiento:"",
+        idsFormasDeNotificacion:"",
+        contacto:
+        {
+          nombreContacto:"",
+          apellidoContacto:"",
+          emailContacto:"",
+          telefonoContacto:"",
+          idsFormaNotificacionContacto:"",
+        },
+        domicilio:
+        {
+          calleDomicilio:"",
+          alturaDomicilio:"",
+          departamentoDomicilio:"",
+          pisoDomicilio:"",
+        },
       },
       mascotita:{
         especieAnimal:"",
@@ -159,19 +258,21 @@
         caracteristicas:[],
       },
     },
+
+    components:
+    {
+        AgregarContacto,
+        AgregarDomicilio,
+    },
     methods:
     {
         persistirPersona: function()
         {
             this.e1 = 2
-            console.log(this.nombre)
-            console.log(this.apellido)
         },
         persistirMascota: function()
         {
             this.e1 = 3
-            console.log(this.nombreM)
-            console.log(this.apodo)
         },
         finalizar: function()
         {
@@ -188,17 +289,31 @@
                         nombre:this.nombre,
                         apellido:this.apellido,
                         documento:{
-                          tipo:this.tipo,
-                          numero:this.numero,
+                          tipo:this.tipoDocumento,
+                          numero:this.numeroDocumento,
                         },
                         telefono:this.telefono,
                         email:this.email,
-                        formaNotif:this.formaNotif,
-                        contactos:[{nombre:"Jose",apellido:"Ruiz",telefono:"123",email:"asd",idsFormasDeNotificacion:[1]}]
+                        
+                        contactos:[{
+                          nombre:this.nombreContacto,
+                          apellido:this.apellidoContacto,
+                          email:this.emailContacto,
+                          telefono:this.telefonoContacto,
+                          idsFormasDeNotificacion:[1],
+                        }],
+                        domicilio:{
+                          calle:this.calleDomicilio,
+                          altura:this.alturaDomicilio,
+                          piso:this.pisoDomicilio,
+                          departamento:this.departamentoDomicilio,
+                        },
+                        fechaNacimiento:this.fechaNacimiento,
+                        idsFormasDeNotificacion:[1],
                       },
                       mascotita:{
                         especieAnimal:this.especieAnimal,
-                        nombreM:this.nombreM,
+                        nombre:this.nombreM,
                         apodo:this.apodo,
                         edadAproximada:this.edadAproximada,
                         sexo:this.sexo,

@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="400">
     <v-toolbar color="#FFEEBD">
-      <v-toolbar-title>IniciarSesion</v-toolbar-title>
+      <v-toolbar-title>Registrarse</v-toolbar-title>
 
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -63,8 +63,8 @@ export default {
     mensaje: "No estoy logueado",
   }),
   methods: {
-    login: function () {
-                fetch("http://localhost:8080/login", {
+    signin: function () {
+                fetch("http://localhost:8080/signin", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'

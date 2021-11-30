@@ -11,44 +11,60 @@
           dark
           v-bind="attrs"
           v-on="on"
-          class="mt-10"
         >
-          Agregar Mascota
+          Agregar Domicilio
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5">Agregar Mascota</span>
+          <span class="text-h5">Agregar Domicilio</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12">
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+              >
                 <v-text-field
-                  label="Descripcion"
+                  label="Calle"
                   required
-                  v-model="descripcionMascota"
-                  @keyup="$emit('update:descripcionMascota', descripcionMascota)"
+                  v-model="calleDomicilio"
+                  @keyup="$emit('update:calleDomicilio', calleDomicilio)"
+                ></v-text-field>
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+              >
+                <v-text-field
+                  label="Altura"
+                  v-model="alturaDomicilio"
+                  @keyup="$emit('update:alturaDomicilio', alturaDomicilio)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-               <v-file-input
-                label="Agregar Fotos"
-                filled
-                prepend-icon="mdi-camera"
-              ></v-file-input>
+                <v-text-field
+                  label="Piso"
+                  required
+                  v-model="pisoDomicilio"
+                  @keyup="$emit('update:pisoDomicilio', pisoDomicilio)"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="Departamento"
+                  required
+                  v-model="departamentoDomicilio"
+                  @keyup="$emit('update:departamentoDomicilio', departamentoDomicilio)"
+                ></v-text-field>
               </v-col>
               <v-col
                 cols="12"
                 sm="6"
               >
-                <v-text-field
-                  label="Ubicacion"
-                  required
-                  v-model="ubicacionMascota"
-                  @keyup="$emit('update:ubicacionMascota', ubicacionMascota)"
-                ></v-text-field>
-                <location-picker :place.sync="place"></location-picker>
               </v-col>
             </v-row>
           </v-container>
@@ -76,13 +92,9 @@
 </template>
 
 <script>
-
   export default {
     data: () => ({
       dialog: false,
     }),
-    components:
-    {
-    }
   }
 </script>

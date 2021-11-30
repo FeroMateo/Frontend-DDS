@@ -30,6 +30,8 @@
                 <v-text-field
                   label="Nombre"
                   required
+                  v-model="nombreContacto"
+                  @keyup="$emit('update:nombreContacto', nombreContacto)"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -39,18 +41,24 @@
               >
                 <v-text-field
                   label="Apellido"
+                  v-model="apellidoContacto"
+                  @keyup="$emit('update:apellidoContacto', apellidoContacto)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Email"
                   required
+                  v-model="emailContacto"
+                  @keyup="$emit('update:emailContacto', emailContacto)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Telefono"
                   required
+                  v-model="telefonoContacto"
+                  @keyup="$emit('update:telefonoContacto', telefonoContacto)"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -61,6 +69,8 @@
                   :items="['Whatsapp','SMS','E-Mail']"
                   label="Forma de Notificacion"
                   required
+                  v-model="idsFormaNotificacionContacto"
+                  @keyup="$emit('update:idsFormaNotificacionContacto', idsFormaNotificacionContacto)"
                 ></v-select>
               </v-col>
               <v-col
