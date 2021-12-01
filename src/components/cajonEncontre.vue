@@ -180,7 +180,7 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
     methods:
     {
     encontreMascotaSinChapita: function () {
-                fetch("http://localhost:8080/mascotas-perdidas", {
+                fetch(process.env.VUE_APP_HOST+"/mascotas-perdidas", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'

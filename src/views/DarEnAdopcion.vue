@@ -156,7 +156,7 @@ import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
     methods:
     {
       confirmarAdopcion: function () {
-                fetch("http://localhost:8080/adopciones", {
+                fetch(process.env.VUE_APP_HOST+"/adopciones", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -208,7 +208,6 @@ import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
                 })
                     .then(response => response.json())
                     .then(datos => {
-                        localStorage.setItem("IDSESION",datos) //guarda ID
                         console.log(datos)
                     })
             },

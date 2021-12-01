@@ -200,7 +200,6 @@
                 })
                     .then(response => response.json())
                     .then(datos => {
-                        localStorage.setItem("IDSESION",datos) //guarda ID
                         console.log(datos)
                     })
             },

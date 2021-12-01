@@ -12,7 +12,7 @@
     >
     
       <v-slide-item
-        v-for="n in mascotasRescatadas.length"
+        v-for="n in publicaciones.length"
         :key="n"
       >
             <v-card
@@ -30,12 +30,12 @@
 
             <v-img
               height="200"
-              :src="mascotasRescatadas[n-1].pathFotos[0]"
+              :src="foto"
             ></v-img>
 
-            <v-card-title v-text="mascotasRescatadas[n-1].especie"></v-card-title>
-            <v-card-text v-text="mascotasRescatadas[n-1].descripcion"></v-card-text>
-            <v-card-text>Fue encontrado en {{mascotasRescatadas[n-1].ubicacion.direccion}}</v-card-text>
+            <v-card-title v-text="publicaciones[n-1].mascotaPerdida.especie"></v-card-title>
+            <v-card-text v-text="publicaciones[n-1].mascotaPerdida.descripcion"></v-card-text>
+            <v-card-text>Fue encontrado en {{publicaciones[n-1].mascotaPerdida.lugarEncuentro.direccion}}</v-card-text>
             <v-card-text>
               <v-row
                 align="center"
@@ -43,7 +43,7 @@
               >
               </v-row>
 
-              <div class="ml-3" v-for="cualidad in mascotasRescatadas[n-1].caracteristicas" :key=cualidad>•{{ cualidad.valor }}</div>
+              <div class="ml-3" v-for="cualidad in publicaciones[n-1].mascotaPerdida.caracteristicas" :key=cualidad>•{{ cualidad.valor }}</div>
 
             </v-card-text>
 
@@ -56,25 +56,25 @@
               <v-btn
                 color="green lighten-2"
                 text
-                @click='aprobar()'
+                @click='aprobar'
               >
                 Aprobar
               </v-btn>
               <v-btn
                 color="red lighten-2"
                 text
-                @click="rechazar()"
+                @click="rechazar"
               >
                 Rechazar
               </v-btn>
             </v-card-actions>
           </v-card>
+          
       </v-slide-item>
+      
     </v-slide-group>
+    <v-btn class="mb-5 mr-5" @click="postMascotasRescatadas"> Confirmar Publicacion</v-btn>
   </v-sheet>
-
-
-
 </template>
 
 
@@ -84,23 +84,56 @@ export default
 
     data: () => ({
 
+      model:null,
+      foto:"https://ahseeit.com/spanish/king-include/uploads/2021/06/thumb_177002455_174685791182813_3055252107994467567_n-9980661562.jpg",
 
-
-        mascotasRescatadas:[
-          {especie:"PERRO",descripcion:"Es alto loro",ubicacion:{latitud:"",longitud:"",direccion:"Avellaneda 234"},caracteristicas:[{idCaracteristica:"1",valor:"Negro"},{idCaracteristica:"1",valor:"Alto"}],pathFotos:["https://ahseeit.com/spanish/king-include/uploads/2021/06/thumb_177002455_174685791182813_3055252107994467567_n-9980661562.jpg"],},
-        
-          ],
+      publicaciones:[],
     }),
     methods:
     {
-        aprobar: function()
+     
+        aprobar: function(publicacion)
         {
             console.log('aprobo')
+            publicacion.estaAprobada=true
         },
-        rechazar: function()
+        rechazar: function(publicacion)
         {
             console.log('rechazo')
-        }
-    } 
+            publicacion.estaAprobada=false
+        },
+        getMascotasRescatadas: function () {
+                fetch(process.env.VUE_APP_HOST+"/gestion/mascotas-perdidas", {
+                    method: "GET",
+                    headers: {
+                        'Authorization':'6273d773-eec7-4ea3-84d2-6dafee0ca8a4'
+                    },
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                        this.publicaciones=datos
+                        console.log(datos)
+                    })
+                },
+          postMascotasRescatadas: function () {
+                fetch(process.env.VUE_APP_HOST+"/mascotas-perdidas", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        publicaciones:this.publicaciones
+                    })
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                        console.log(datos)
+                    })
+            },
+    },
+     beforeMount()
+          {
+            this.getMascotasRescatadas();
+          }, 
 }
 </script>

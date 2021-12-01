@@ -64,7 +64,7 @@ export default {
   }),
   methods: {
     signin: function () {
-                fetch("http://localhost:8080/signin", {
+                fetch(process.env.VUE_APP_HOST+"/signin", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -76,17 +76,15 @@ export default {
                 })
                     .then(response => response.json())
                     .then(datos => {
-                        localStorage.setItem("IDSESION", datos.idSesion) //guarda ID
                         console.log(datos.idSesion)
                     })
             },
     prueba: function () {
-                fetch("http://localhost:8080/login", {
+                fetch(process.env.VUE_APP_HOST+"/login", {
                     method: "GET",
                 })
                     .then(response => response.json())
                     .then(datos => {
-                        localStorage.setItem("IDSESION", datos.idSesion) //guarda ID
                         console.log(datos.idSesion)
                     })
             },

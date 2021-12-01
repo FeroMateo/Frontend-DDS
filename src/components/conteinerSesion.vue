@@ -51,24 +51,35 @@ export default {
   }),
   methods: {
     login: function () {
-                fetch("http://localhost:8080/login", {
+                fetch(process.env.VUE_APP_HOST+"/login", {
                     method: "POST",
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        "Access-Control-Allow-Origin": "*",
                     },
                     body: JSON.stringify({
                         username: this.usuario,
                         password: this.password
                     })
                 })
-                    .then(response => response.json())
+                    //.then(response => response.json())
                     .then(datos => {
-                        localStorage.setItem("IDSESION",datos) //guarda ID
-                        console.log(datos)
+
+                        if(datos!=null)
+                        {
+                          localStorage.setItem('IDSESION',[datos]) //guarda ID
+                          console.log(datos)
+                          this.$router.push({ name: "RegistrarMascota"})
+                        }else
+                        {
+                          console.warn("ERROR")
+                        }
+
+                
                     })
             },
     prueba: function () {
-                fetch("http://localhost:8080/login", {
+                fetch(process.env.VUE_APP_HOST+"/login", {
                     method: "GET",
                 })
                     .then(response => response.json())

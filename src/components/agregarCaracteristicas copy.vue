@@ -104,7 +104,7 @@
         this.dialog = false
       },
       getCaracteristicas: function () {
-                fetch("http://localhost:8080/caracteristicas", {
+                fetch(process.env.VUE_APP_HOST+"/caracteristicas", {
                     method: "GET",
                 })
                     .then(response => response.json())
