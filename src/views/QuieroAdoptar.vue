@@ -23,6 +23,8 @@
         :numeroDocumentoPersona.sync="numeroDocumentoPersona"
         :fechaPersona.sync="fechaPersona"
         :emailPersona.sync="emailPersona"
+        :idsFormaDeNotificacionPersona.sync="idsFormaDeNotificacionPersona"
+
       ></agregar-persona>
       <agregar-contacto
         class="mt-10"
@@ -42,21 +44,21 @@
 
       <v-select
           :items="especies"
-          label="Forma de Notificacion"
+          label="Especie"
           required
           v-model="especieAnimalMascota"
       ></v-select>
       <agregar-caracteristica
+      :caracteristicasElegidas.sync="caracteristicasElegidas"
       ></agregar-caracteristica>
 
+      <agregar-comodidades
+      :comodidadesElegidas.sync="comodidadesElegidas"
+      ></agregar-comodidades>
+
+      <v-btn @click="confirmarAdopcion">CONFIRMAR ADOPCION</v-btn>
 
       </v-sheet>
-
-
-
-
-      
-
     </v-container>
   </v-main>
 
@@ -72,6 +74,7 @@
   import AgregarContacto from '../components/agregarContacto.vue'
   import AgregarDomicilio from '../components/agregarDomicilio.vue'
   import AgregarCaracteristica from '../components/agregarCaracteristicas.vue'
+  import AgregarComodidades from '../components/agregarComodidades.vue'
 
 
   export default {
@@ -93,7 +96,7 @@
         apellidoContacto:"",
         emailContacto:"",
         telefonoContacto:"",
-        idsFormaNotificacionContacto:"",
+        idsFormaNotificacionContacto:[],
 
         calleDomicilio:"",
         alturaDomicilio:"",
@@ -109,8 +112,10 @@
         especieAnimalMascota:"",
 
         //CARACTERISTICAS ES  ID Y VALOR
-        caracteristicasMascota:"",
+        caracteristicasElegidas:"",
+        comodidadesElegidas:"",
 
+        idsFormaDeNotificacionPersona:[],
         nombrePersona:"",
         apellidoPersona:"",
         tipoDocumentoPersona:"",
@@ -118,6 +123,7 @@
         emailPersona:"",
         numeroDocumentoPersona:"",
         fechaPersona:"",
+        
 
       valid: false,
       firstname: '',
@@ -139,17 +145,22 @@
       AgregarContacto,
       AgregarDomicilio,
       AgregarCaracteristica,
+      AgregarComodidades,
     },
     methods:
     {
+      prueba: function () {
+        console.log(this.caracteristicasElegidas)
+        console.log(this.comodidadesElegidas)
+      },
       confirmarAdopcion: function () {
-                fetch(process.env.VUE_APP_HOST+"/adopciones", {
+                fetch(process.env.VUE_APP_HOST+"/busquedas-adopcion", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        duenio:
+                        interesado:
                         {
                           nombre:this.nombrePersona,
                           apellido:this.apellidoPersona,
@@ -169,32 +180,22 @@
                           },
                           telefono:this.telefonoPersona,
                           email:this.emailPersona,
-                          idsFormasDeNotificacion:[1,2],
+                          idsFormasDeNotificacion:this.idsFormaDeNotificacionPersona,
                           contactos:
                           [{
                             nombre:this.nombreContacto,
                             apellido:this.apellidoContacto,
                             email:this.emailContacto,
                             telefono:this.telefonoContacto,
-                            idsFormasDeNotificacion:[1,2],
+                            idsFormasDeNotificacion:this.idsFormaNotificacionContacto,
                           }],
                         },
-                        mascotita:
+                        preferencia:
                         {
-                          especieAnimal:this.especieAnimalMascota,
-                          nombre:this.nombreMascota,
-                          apodo:this.apodoMascota,
-                          edadAproximada:this.edadMascota,
-                          sexo:this.sexoMascota,
-                          descripcionFisica:this.descripcionMascota,
-                          pathsFotos:[],
-                          caracteristicas:
-                          [{
-                            idCaracteristica:1,
-                            valor:"algo",
-                          }],
+                          especie:this.especieAnimalMascota,
+                          caracteristicas:this.caracteristicasElegidas
                         },
-                        mensaje:"No molestar"
+                        comodidades:this.comodidadesElegidas,
                     })
                 })
                     .then(response => response.json())

@@ -86,7 +86,7 @@
                   :items="[1,2,3]"
                   label="Forma de Notificacion"
                   required
-                  v-model="idsFormaNotificacionContacto"
+                  v-model="idsFormaDeNotificacionPersona"
                   multiple
                 ></v-select>
               </v-col>
@@ -103,13 +103,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Close
-          </v-btn>
+          
           <v-btn
             color="blue darken-1"
             text
@@ -132,8 +126,9 @@
     {
       botonGrande: function() 
       {
-       this.$emit('update:idsFormaNotificacionContacto', this.idsFormaNotificacionContacto);
+       this.$emit('update:idsFormaDeNotificacionPersona', this.idsFormaDeNotificacionPersona);
        this.$emit('update:fechaPersona', this.fechaPersona);
+       this.dialog = false
       }
     }
   }

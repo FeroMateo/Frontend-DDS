@@ -14,7 +14,7 @@
           v-on="on"
           class="mb-10 mt-3"
         >
-          Agregar Caracteristicas
+          Agregar Comodidades
         </v-btn>
       </template>
       <v-card>
@@ -28,19 +28,23 @@
                   color="indigo"
                   dark
                 >
-                  <v-toolbar-title>Agregar Caracteristica</v-toolbar-title>
+                  <v-toolbar-title>Agregar Comodidades</v-toolbar-title>
 
                   <v-spacer></v-spacer>
                 </v-toolbar>
                 <v-list>
                   <v-list-item
-                    v-for="n in caracteristicas.length"
+                    v-for="n in comodidadesElegidas.length"
                     :key="n"
                   >
                     <v-list-item-content>
-                      <v-card-text v-text="caracteristicas[n-1].descripcion"></v-card-text>
-                      <v-text-field v-model="valores[n-1]"></v-text-field>
-                      <v-btn @click="agregarCaracterizacion(caracteristicas[n-1].id,valores[n-1])">Save</v-btn>         
+                      <v-card-text v-text="comodidadesElegidas[n-1].descripcion"></v-card-text>
+                        <v-switch
+
+                          v-model="comodidadesElegidas[n-1].seCumple"
+                          :label="`Switch 1: ${comodidadesElegidas[n-1].seCumple.toString()}`"
+                        ></v-switch>
+                     
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
@@ -50,7 +54,6 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-      
           <v-btn
             color="blue darken-1"
             text
@@ -68,14 +71,17 @@
 
   export default {
     data: () => ({
+      switch1:"",
       dialog: false,
       especies:["GATO","PERRO"],
       valores:[],
-      caracteristicas: [
-        
+      comodidadesElegidas: [
+        {descripcion:"Patio",seCumple:false},
+        {descripcion:"Hogar Espacioso",seCumple:false},
+        {descripcion:"Otra Mascota",seCumple:false},
         ],      
       caracterizacion:{id:"",valor:""},
-      caracteristicasElegidas:[],
+      caracterizaciones:[],
     }),
     components:
     {
@@ -84,34 +90,9 @@
     {
       finalizar: function() 
       {
-        this.$emit('update:caracteristicasElegidas', this.caracteristicasElegidas)
+        this.$emit('update:comodidadesElegidas', this.comodidadesElegidas)
         this.dialog = false
-      },
-      getCaracteristicas: function () {
-                fetch("http://localhost:8080/caracteristicas", {
-                    method: "GET",
-                })
-                    .then(response => response.json())
-                    .then(datos => {
-                        this.caracteristicas=datos
-                        console.log(datos)
-                        console.log(this.caracteristicas)
-                    })
-            },
-            agregarCaracterizacion: function (idCaracteristica,valor) 
-            {
-              this.caracteristicasElegidas.push({idCaracteristica,valor})
-              console.log(this,this.caracteristicasElegidas)
-        },
-            tamanioCarac: function (lista)
-            {
-              return lista.length() 
-            }
-        },
-    beforeMount()
-    {
-      this.getCaracteristicas();
-    }
-
+      }
+    },
 }
 </script>
