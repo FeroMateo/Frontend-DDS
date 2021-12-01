@@ -68,6 +68,7 @@
       <v-text-field
         label="Fecha de nacimiento"
         required
+        type="date"
         v-model="fechaNacimiento"
       ></v-text-field>
 
@@ -94,10 +95,11 @@
       <v-row align="center">
       <v-col cols="12">
       <v-select
-        :items="items"
+        :items="servicios"
         :menu-props="{ top: true, offsetY: true }"
         label="Label"
-    
+        multiple
+        v-model="idsFormasDeNotificacion"
       ></v-select>
 
      
@@ -186,13 +188,7 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <v-card
-          class="mb-12"
-          color="grey lighten-1"
-          height="200px"
-        >
-        <h1>BUENISIMO PA</h1>
-        </v-card>
+       
 
         <v-btn
           color="primary"
@@ -216,8 +212,8 @@
   export default {
     data:() =>({
       e1:1,
-      items: ['1','2','3'],
-      especies:['GATO','PERRO'],
+      servicios: [1,2,3],
+      especies:["GATO","PERRO"],
     }),
 
     DuenioMascota:
@@ -300,7 +296,7 @@
                           apellido:this.apellidoContacto,
                           email:this.emailContacto,
                           telefono:this.telefonoContacto,
-                          idsFormasDeNotificacion:[1],
+                          idsFormasDeNotificacion:this.idsFormaNotificacionContacto,
                         }],
                         domicilio:{
                           calle:this.calleDomicilio,
@@ -309,7 +305,7 @@
                           departamento:this.departamentoDomicilio,
                         },
                         fechaNacimiento:this.fechaNacimiento,
-                        idsFormasDeNotificacion:[1],
+                        idsFormasDeNotificacion:this.idsFormasDeNotificacion,
                       },
                       mascotita:{
                         especieAnimal:this.especieAnimal,
@@ -318,8 +314,11 @@
                         edadAproximada:this.edadAproximada,
                         sexo:this.sexo,
                         descripcionFisica:this.descripcionFisica,
-                        pathsFotos:this.pathsFotos,
-                        caracteristicas:this.caracteristicas,
+                        pathsFotos:[],
+                        caracteristicas:[{
+                          idCaracteristica:1,
+                          valor:"algo",
+                        }],
                          },
                     })
                 })

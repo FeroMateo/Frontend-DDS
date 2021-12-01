@@ -15,17 +15,21 @@
           ></v-text-field>
           <v-text-field
             v-model="apellidoRescatista"
-            :rules="nameRules"
             :counter="10"
             label="Apellido"
             required
           ></v-text-field>
           <v-text-field
             v-model="fechaRescate"
-            :rules="nameRules"
             type="date"
             :counter="10"
             label="Fecha"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="emailRescatista"
+            :counter="20"
+            label="Email"
             required
           ></v-text-field>
         </v-col>
@@ -36,25 +40,32 @@
         >
           <v-text-field
             v-model="tipoDocumentoRescatista"
-            :rules="nameRules"
+
             :counter="10"
             label="Tipo documento"
             required
           ></v-text-field>
           <v-text-field
             v-model="numeroDocumentoRescatista"
-            :rules="nameRules"
-            :counter="10"
+
+            :counter="20"
             label="Numero de documento"
             required
           ></v-text-field>
           <v-text-field
-            v-model="direccionRescatista"
-            :rules="nameRules"
-            :counter="10"
-            label="Direccion"
+            v-model="telefonoRescatista"
+
+            :counter="20"
+            label="Telefono"
             required
           ></v-text-field>
+          <v-select
+                  :items="[1,2,3]"
+                  label="Forma de Notificacion"
+                  required
+                  v-model="idsFormaNotificacionRescatista"
+                  multiple
+                ></v-select>
         </v-col>
 
         <v-col
@@ -72,6 +83,7 @@
 
 
         <agregar-domicilio
+        class="mt-10"
         :calleDomicilio.sync="calleDomicilio"
         :alturaDomicilio.sync="alturaDomicilio"
         :pisoDomicilio.sync="pisoDomicilio"
@@ -82,6 +94,10 @@
         :descripcionMascota.sync="descripcionMascota"
         :fotosMascota.sync="fotosMascota"
         :ubicacionMascota.sync="ubicacionMascota"
+        :latitudMascota.sync="latitudMascota"
+        :longitudMascota.sync="longitudMascota"
+        :direccionMascota.sync="direccionMascota"
+        :especieAnimalMascota.sync="especieAnimalMascota"
         ></agregar-mascota>
 
         
@@ -120,15 +136,20 @@ import AgregarDomicilio from '../components/agregarDomicilio.vue'
         departamentoDomicilio:"",
 
         descripcionMascota:"",
-        fotosMascota:"",
-        ubicacionMascota:"",
+        fotosMascota:[],
+        direccionMascota:"",
+        latitudMascota:"",
+        longitudMascota:"",
+        especieAnimalMascota:"",
 
         nombreRescatista:"",
         apellidoRescatista:"",
-        direccionRescatista:"",
         tipoDocumentoRescatista:"",
         numeroDocumentoRescatista:"",
+        telefonoRescatista:"",
+        emailRescatista:"",
         fechaRescate:"",
+        idsFormaNotificacionRescatista:"",
 
       valid: false,
       firstname: '',
@@ -153,27 +174,32 @@ import AgregarDomicilio from '../components/agregarDomicilio.vue'
     methods:
     {
     encontreMascotaSinChapita: function () {
-                fetch("http://localhost:8080/encontreMascota", {
+                fetch("http://localhost:8080/mascotas-perdidas", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        persona:
+                        rescatista:
                         {
                           nombre:this.nombreRescatista,
                           apellido:this.apellidoRescatista,
-                          direccion:this.direccionRescatista,
-                          tipoDocumento:this.tipoDocumentoRescatista,
-                          numeroDocumento:this.numeroDocumentoRescatista,
+                          documento:
+                          {
+                            tipo:this.tipoDocumentoRescatista,
+                            numero:this.numeroDocumentoRescatista,
+                          },
                           fechaNacimiento:this.fechaRescate,
+                          telefono:this.telefonoRescatista,
+                          email:this.emailRescatista,
+                          idsFormasDeNotificacion:this.idsFormaNotificacionRescatista,
                           contactos:
                           [{
                             nombre:this.nombreContacto,
                             apellido:this.apellidoContacto,
                             email:this.emailContacto,
                             telefono:this.telefonoContacto,
-                            idsFormaNotificacionContacto:this.idsFormaNotificacionContacto,
+                            idsFormasDeNotificacion:this.idsFormaNotificacionContacto,
                           }],
                           domicilio:
                           {
@@ -183,13 +209,23 @@ import AgregarDomicilio from '../components/agregarDomicilio.vue'
                             departamento:this.departamentoDomicilio,
                           }
                         },
-                        mascotita:
+                        mascotitaPerdida:
                         {
                           descripcion:this.descripcionMascota,
-                          fotos:this.fotosMascota,
-                          ubicacion:this.ubicacionMascota,
+                          pathsFotos:this.fotosMascota,
+                          ubicacion:
+                          {
+                            latitud:this.latitudMascota,
+                            longitud:this.longitudMascota,
+                            direccion:this.direccionMascota,
+                          },                         
+                          especie:this.especieAnimalMascota,
+                          caracteristicas:[
+                          {
+                            idCaracteristica: 1,
+                            valor: "Algo"
+                          }],
                         },
-                        
                     })
                 })
                     .then(response => response.json())

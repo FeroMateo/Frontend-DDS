@@ -11,7 +11,6 @@
           dark
           v-bind="attrs"
           v-on="on"
-          class="mt-8"
         >
           Agregar Mascota
         </v-btn>
@@ -23,6 +22,41 @@
         <v-card-text>
           <v-container>
             <v-row>
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+              >
+                <v-text-field
+                  label="Nombre"
+                  required
+                  v-model="nombreMascota"
+                  @keyup="$emit('update:nombreMascota', nombreMascota)"
+                ></v-text-field>
+                <v-text-field
+                  label="Sexo"
+                  required
+                  v-model="sexoMascota"
+                  @keyup="$emit('update:sexoMascota', sexoMascota)"
+                ></v-text-field>
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+              >
+                <v-text-field
+                  label="Apodo"
+                  v-model="apodoMascota"
+                  @keyup="$emit('update:apodoMascota', apodoMascota)"
+                ></v-text-field>
+                <v-text-field
+                  label="Edad Aproximada"
+                  required
+                  v-model="edadMascota"
+                  @keyup="$emit('update:edadMascota', edadMascota)"
+                ></v-text-field>
+              </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Descripcion"
@@ -32,12 +66,18 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-               <v-file-input
+                <v-file-input
                 label="Agregar Fotos"
                 filled
                 prepend-icon="mdi-camera"
               ></v-file-input>
-              <v-select
+              <!-- AGREGAR CARACTERISTICAS -->
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+              >
+                <v-select
                   :items="especies"
                   label="Especie Animal"
                   required
@@ -48,25 +88,6 @@
                 cols="12"
                 sm="6"
               >
-                <v-text-field
-                  label="Latitud"
-                  required
-                  v-model="latitudMascota"
-                  @keyup="$emit('update:latitudMascota', latitudMascota)"
-                ></v-text-field>
-                <v-text-field
-                  label="Longitud"
-                  required
-                  v-model="longitudMascota"
-                  @keyup="$emit('update:longitudMascota', longitudMascota)"
-                ></v-text-field>
-                <v-text-field
-                  label="Direccion"
-                  required
-                  v-model="direccionMascota"
-                  @keyup="$emit('update:direccionMascota', direccionMascota)"
-                ></v-text-field>
-                <location-picker :place.sync="place"></location-picker>
               </v-col>
             </v-row>
           </v-container>
@@ -84,6 +105,7 @@
             color="blue darken-1"
             text
             @click="$emit('update:especieAnimalMascota', especieAnimalMascota)"
+            
           >
             Save
           </v-btn>
@@ -94,14 +116,10 @@
 </template>
 
 <script>
-
   export default {
     data: () => ({
       dialog: false,
-      especies:["GATO","PERRO"],
+      especies:["PERRO","GATO"]
     }),
-    components:
-    {
-    }
   }
 </script>
