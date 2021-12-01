@@ -28,7 +28,18 @@
 <script>
   export default {
     data: () => ({
+
+      nombre1:"",
+      apellido:"",
+
       items: ['WP','MAIL','SMS'],
-    })
+    }),
+    methods:
+    {
+      emitirNombre: function() {
+
+          this.$emit('update:nombre',this.nombre1) 
+      },
+    }
   }
 </script>

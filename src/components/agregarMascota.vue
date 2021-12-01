@@ -11,7 +11,7 @@
           dark
           v-bind="attrs"
           v-on="on"
-          class="mt-10"
+          class="mt-8"
         >
           Agregar Mascota
         </v-btn>
@@ -27,6 +27,8 @@
                 <v-text-field
                   label="Descripcion"
                   required
+                  v-model="descripcionMascota"
+                  @keyup="$emit('update:descripcionMascota', descripcionMascota)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -35,14 +37,34 @@
                 filled
                 prepend-icon="mdi-camera"
               ></v-file-input>
+              <v-select
+                  :items="especies"
+                  label="Especie Animal"
+                  required
+                  v-model="especieAnimalMascota"
+                ></v-select>
               </v-col>
               <v-col
                 cols="12"
                 sm="6"
               >
                 <v-text-field
-                  label="Ubicacion"
+                  label="Latitud"
                   required
+                  v-model="latitudMascota"
+                  @keyup="$emit('update:latitudMascota', latitudMascota)"
+                ></v-text-field>
+                <v-text-field
+                  label="Longitud"
+                  required
+                  v-model="longitudMascota"
+                  @keyup="$emit('update:longitudMascota', longitudMascota)"
+                ></v-text-field>
+                <v-text-field
+                  label="Direccion"
+                  required
+                  v-model="direccionMascota"
+                  @keyup="$emit('update:direccionMascota', direccionMascota)"
                 ></v-text-field>
                 <location-picker :place.sync="place"></location-picker>
               </v-col>
@@ -61,7 +83,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="finalizar"
           >
             Save
           </v-btn>
@@ -76,9 +98,18 @@
   export default {
     data: () => ({
       dialog: false,
+      especies:["GATO","PERRO"],
     }),
     components:
     {
+    },
+    methods:
+    {
+      finalizar: function() 
+      {
+        this.$emit('update:especieAnimalMascota', this.especieAnimalMascota)
+        this.dialog = false
+      },
     }
   }
 </script>

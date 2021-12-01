@@ -12,12 +12,12 @@
           v-bind="attrs"
           v-on="on"
         >
-          Agregar Contacto
+          Agregar Mascota
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5">Agregar Contacto</span>
+          <span class="text-h5">Agregar Mascota</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -30,8 +30,14 @@
                 <v-text-field
                   label="Nombre"
                   required
-                  v-model="nombreContacto"
-                  @keyup="$emit('update:nombreContacto', nombreContacto)"
+                  v-model="nombreMascota"
+                  @keyup="$emit('update:nombreMascota', nombreMascota)"
+                ></v-text-field>
+                <v-text-field
+                  label="Sexo"
+                  required
+                  v-model="sexoMascota"
+                  @keyup="$emit('update:sexoMascota', sexoMascota)"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -40,37 +46,42 @@
                 md="4"
               >
                 <v-text-field
-                  label="Apellido"
-                  v-model="apellidoContacto"
-                  @keyup="$emit('update:apellidoContacto', apellidoContacto)"
+                  label="Apodo"
+                  v-model="apodoMascota"
+                  @keyup="$emit('update:apodoMascota', apodoMascota)"
+                ></v-text-field>
+                <v-text-field
+                  label="Edad Aproximada"
+                  required
+                  v-model="edadMascota"
+                  @keyup="$emit('update:edadMascota', edadMascota)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="Email"
+                  label="Descripcion"
                   required
-                  v-model="emailContacto"
-                  @keyup="$emit('update:emailContacto', emailContacto)"
+                  v-model="descripcionMascota"
+                  @keyup="$emit('update:descripcionMascota', descripcionMascota)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field
-                  label="Telefono"
-                  required
-                  v-model="telefonoContacto"
-                  @keyup="$emit('update:telefonoContacto', telefonoContacto)"
-                ></v-text-field>
+                <v-file-input
+                label="Agregar Fotos"
+                filled
+                prepend-icon="mdi-camera"
+              ></v-file-input>
+              <!-- AGREGAR CARACTERISTICAS -->
               </v-col>
               <v-col
                 cols="12"
                 sm="6"
               >
                 <v-select
-                  :items="[1,2,3]"
-                  label="Forma de Notificacion"
+                  :items="especies"
+                  label="Especie Animal"
                   required
-                  v-model="idsFormaNotificacionContacto"
-                  multiple
+                  v-model="especieAnimalMascota"
                 ></v-select>
               </v-col>
               <v-col
@@ -83,7 +94,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-  
+
           <v-btn
             color="blue darken-1"
             text
@@ -101,14 +112,15 @@
   export default {
     data: () => ({
       dialog: false,
+      especies:["PERRO","GATO"]
     }),
     methods:
     {
-       finalizar: function() 
+      finalizar: function() 
       {
-        this.$emit('update:idsFormaNotificacionContacto', this.idsFormaNotificacionContacto)
+        this.$emit('update:especieAnimalMascota', this.especieAnimalMascota)
         this.dialog = false
-      },
+      }
     },
   }
 </script>

@@ -23,6 +23,8 @@
         :numeroDocumentoPersona.sync="numeroDocumentoPersona"
         :fechaPersona.sync="fechaPersona"
         :emailPersona.sync="emailPersona"
+        :idsFormaDeNotificacionPersona.sync="idsFormaDeNotificacionPersona"
+
       ></agregar-persona>
       <agregar-contacto
         class="mt-10"
@@ -39,20 +41,26 @@
         :pisoDomicilio.sync="pisoDomicilio"
         :departamentoDomicilio.sync="departamentoDomicilio"
       ></agregar-domicilio>
-      <agregar-usuario
-        class="mt-10 mb-5"
-        :username.sync="username"
-        :password.sync="password"
-      ></agregar-usuario>
-        
+
+      <v-select
+          :items="especies"
+          label="Especie"
+          required
+          v-model="especieAnimalMascota"
+      ></v-select>
+      <agregar-caracteristica
+      :caracteristicasElegidas.sync="caracteristicasElegidas"
+      ></agregar-caracteristica>
+
+      <agregar-comodidades
+      :comodidadesElegidas.sync="comodidadesElegidas"
+      ></agregar-comodidades>
+
+      <v-btn @click="confirmarAdopcion">CONFIRMAR ADOPCION</v-btn>
 
       </v-sheet>
-      
     </v-container>
-
-    <v-btn @click="signin">Confirmar</v-btn>
   </v-main>
-  
 
   <v-footer app>
     <!-- -->
@@ -65,24 +73,49 @@
   import AgregarPersona from '../components/agregarPersona.vue'
   import AgregarContacto from '../components/agregarContacto.vue'
   import AgregarDomicilio from '../components/agregarDomicilio.vue'
-import AgregarUsuario from '../components/agregarUsuario.vue'
+  import AgregarCaracteristica from '../components/agregarCaracteristicas.vue'
+  import AgregarComodidades from '../components/agregarComodidades.vue'
 
 
   export default {
-    name: 'signIn',
+    name: 'QuieroAdoptar',
     data: () => ({
+
+        especies:["GATO","PERRO"],
+        preferencias:[
+          {
+            especie:"",
+            caracteristicas:
+            {
+              idCaracteristica:"",
+              valor:"",
+            },
+          }],
 
         nombreContacto:"",
         apellidoContacto:"",
         emailContacto:"",
         telefonoContacto:"",
-        idsFormaNotificacionContacto:"",
+        idsFormaNotificacionContacto:[],
 
         calleDomicilio:"",
         alturaDomicilio:"",
         pisoDomicilio:"",
         departamentoDomicilio:"",
+        
+        nombreMascota:"",
+        apodoMascota:"",
+        edadMascota:"",
+        sexoMascota:"",
+        descripcionMascota:"",
+        fotosMascota:"",
+        especieAnimalMascota:"",
 
+        //CARACTERISTICAS ES  ID Y VALOR
+        caracteristicasElegidas:"",
+        comodidadesElegidas:"",
+
+        idsFormaDeNotificacionPersona:[],
         nombrePersona:"",
         apellidoPersona:"",
         tipoDocumentoPersona:"",
@@ -90,9 +123,7 @@ import AgregarUsuario from '../components/agregarUsuario.vue'
         emailPersona:"",
         numeroDocumentoPersona:"",
         fechaPersona:"",
-
-        username:"",
-        password:"",
+        
 
       valid: false,
       firstname: '',
@@ -113,18 +144,23 @@ import AgregarUsuario from '../components/agregarUsuario.vue'
       AgregarPersona,
       AgregarContacto,
       AgregarDomicilio,
-      AgregarUsuario,
+      AgregarCaracteristica,
+      AgregarComodidades,
     },
     methods:
     {
-      signin: function () {
-                fetch(process.env.VUE_APP_HOST+"/sign-up", {
+      prueba: function () {
+        console.log(this.caracteristicasElegidas)
+        console.log(this.comodidadesElegidas)
+      },
+      confirmarAdopcion: function () {
+                fetch(process.env.VUE_APP_HOST+"/busquedas-adopcion", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        duenio:
+                        interesado:
                         {
                           nombre:this.nombrePersona,
                           apellido:this.apellidoPersona,
@@ -144,25 +180,26 @@ import AgregarUsuario from '../components/agregarUsuario.vue'
                           },
                           telefono:this.telefonoPersona,
                           email:this.emailPersona,
-                          idsFormasDeNotificacion:[1,2],
+                          idsFormasDeNotificacion:this.idsFormaDeNotificacionPersona,
                           contactos:
                           [{
                             nombre:this.nombreContacto,
                             apellido:this.apellidoContacto,
                             email:this.emailContacto,
                             telefono:this.telefonoContacto,
-                            idsFormasDeNotificacion:[1,2],
+                            idsFormasDeNotificacion:this.idsFormaNotificacionContacto,
                           }],
                         },
-                        usuario:{
-                          nombre:this.username,
-                          contrasenia:this.password,
-                        }
+                        preferencia:
+                        {
+                          especie:this.especieAnimalMascota,
+                          caracteristicas:this.caracteristicasElegidas
+                        },
+                        comodidades:this.comodidadesElegidas,
                     })
                 })
                     .then(response => response.json())
                     .then(datos => {
-                        localStorage.setItem("IDSESION",datos) //guarda ID
                         console.log(datos)
                     })
             },

@@ -1,49 +1,93 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="900"
-  >
-    <v-toolbar
-      color="#FFEEBD"
-    >
+  <v-card class="mx-auto" max-width="400">
+    <v-toolbar color="#FFEEBD">
       <v-toolbar-title>Registrarse</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
     </v-toolbar>
 
-    <v-list three-line>
-            <input type="text" v-model="usuario" placeholder="Usuario">
+    <v-form v-model="valid">
+      <div id="appVue">
+        <v-container>
+          <v-col cols="auto" md="4">
+            <v-text-field
+              v-model="usuario"
+              type="text"
+              label="Usuario"
+              required
+            ></v-text-field>
+          </v-col>
 
-            <input type="text" v-model="email" placeholder="E-mail">
-            
-            <input type="password" v-model="password" placeholder="Contraseña">
+          <v-col cols="auto" md="4">
+            <v-text-field
+              v-model="email"
+              type="text"
+              label="email"
+              required
+            ></v-text-field>
+          </v-col>
 
-            <input type="password" v-model="repassword" placeholder="Repetir Contraseña">
+          <v-col cols="auto" md="4">
+            <v-text-field
+              v-model="password"
+              type="password"
+              label="contraseña"
+              required
+            ></v-text-field>
+          </v-col>
 
-            <v-btn @click="login">Signin</v-btn>
-    </v-list>
+          <v-col cols="auto" md="6">
+            <v-text-field
+              v-model="repassword"
+              type="password"
+              label="Repetir Contraseña"
+              required
+            ></v-text-field>
+          </v-col>
+
+          <v-btn @click="login">Signin</v-btn>
+        </v-container>
+      </div>
+    </v-form>
   </v-card>
 </template>
 
-
 <script>
-export default
-{
-    data: () => ({
-        usuario: "",
-        password:"",
-        email:"",
-        repassword:"",
+export default {
+  data: () => ({
+    usuario: "",
+    password: "",
+    email: "",
+    repassword: "",
 
-        mensaje: "No estoy logueado",
-    }),
-    methods:
-    {
-        login: function()
-        {
-           this.$router.push({ name: "Home"})
-        }
-    } 
-}
+    mensaje: "No estoy logueado",
+  }),
+  methods: {
+    signin: function () {
+                fetch(process.env.VUE_APP_HOST+"/signin", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: this.usuario,
+                        password: this.password
+                    })
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                        console.log(datos.idSesion)
+                    })
+            },
+    prueba: function () {
+                fetch(process.env.VUE_APP_HOST+"/login", {
+                    method: "GET",
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                        console.log(datos.idSesion)
+                    })
+            },
+  },
+};
 </script>

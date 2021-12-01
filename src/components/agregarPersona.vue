@@ -12,12 +12,12 @@
           v-bind="attrs"
           v-on="on"
         >
-          Agregar Contacto
+          Agregar Persona
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5">Agregar Contacto</span>
+          <span class="text-h5">Agregar Persona</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -30,8 +30,13 @@
                 <v-text-field
                   label="Nombre"
                   required
-                  v-model="nombreContacto"
-                  @keyup="$emit('update:nombreContacto', nombreContacto)"
+                  v-model="nombrePersona"
+                  @keyup="$emit('update:nombrePersona', nombrePersona)"
+                ></v-text-field>
+                <v-text-field
+                  label="Telefono"
+                  v-model="telefonoPersona"
+                  @keyup="$emit('update:telefonoPersona', telefonoPersona)"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -41,24 +46,36 @@
               >
                 <v-text-field
                   label="Apellido"
-                  v-model="apellidoContacto"
-                  @keyup="$emit('update:apellidoContacto', apellidoContacto)"
+                  v-model="apellidoPersona"
+                  @keyup="$emit('update:apellidoPersona', apellidoPersona)"
+                ></v-text-field>
+                <v-text-field
+                  label="Fecha Nacimiento"
+                  type="date"
+                  required
+                  v-model="fechaPersona"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Email"
                   required
-                  v-model="emailContacto"
-                  @keyup="$emit('update:emailContacto', emailContacto)"
+                  v-model="emailPersona"
+                  @keyup="$emit('update:emailPersona', emailPersona)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="Telefono"
+                  label="Tipo Documento"
                   required
-                  v-model="telefonoContacto"
-                  @keyup="$emit('update:telefonoContacto', telefonoContacto)"
+                  v-model="tipoDocumentoPersona"
+                  @keyup="$emit('update:tipoDocumentoPersona', tipoDocumentoPersona)"
+                ></v-text-field>
+                <v-text-field
+                  label="Numero Documento"
+                  required
+                  v-model="numeroDocumentoPersona"
+                  @keyup="$emit('update:numeroDocumentoPersona', numeroDocumentoPersona)"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -69,7 +86,7 @@
                   :items="[1,2,3]"
                   label="Forma de Notificacion"
                   required
-                  v-model="idsFormaNotificacionContacto"
+                  v-model="idsFormaDeNotificacionPersona"
                   multiple
                 ></v-select>
               </v-col>
@@ -77,17 +94,20 @@
                 cols="12"
                 sm="6"
               >
+                
+
+
               </v-col>
             </v-row>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-  
+          
           <v-btn
             color="blue darken-1"
             text
-            @click="finalizar"
+            @click="botonGrande"
           >
             Save
           </v-btn>
@@ -104,11 +124,12 @@
     }),
     methods:
     {
-       finalizar: function() 
+      botonGrande: function() 
       {
-        this.$emit('update:idsFormaNotificacionContacto', this.idsFormaNotificacionContacto)
-        this.dialog = false
-      },
-    },
+       this.$emit('update:idsFormaDeNotificacionPersona', this.idsFormaDeNotificacionPersona);
+       this.$emit('update:fechaPersona', this.fechaPersona);
+       this.dialog = false
+      }
+    }
   }
 </script>

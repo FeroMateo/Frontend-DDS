@@ -12,12 +12,12 @@
           v-bind="attrs"
           v-on="on"
         >
-          Agregar Contacto
+          Agregar Domicilio
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5">Agregar Contacto</span>
+          <span class="text-h5">Agregar Domicilio</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -28,10 +28,10 @@
                 md="4"
               >
                 <v-text-field
-                  label="Nombre"
+                  label="Calle"
                   required
-                  v-model="nombreContacto"
-                  @keyup="$emit('update:nombreContacto', nombreContacto)"
+                  v-model="calleDomicilio"
+                  @keyup="$emit('update:calleDomicilio', calleDomicilio)"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -40,38 +40,26 @@
                 md="4"
               >
                 <v-text-field
-                  label="Apellido"
-                  v-model="apellidoContacto"
-                  @keyup="$emit('update:apellidoContacto', apellidoContacto)"
+                  label="Altura"
+                  v-model="alturaDomicilio"
+                  @keyup="$emit('update:alturaDomicilio', alturaDomicilio)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="Email"
+                  label="Piso"
                   required
-                  v-model="emailContacto"
-                  @keyup="$emit('update:emailContacto', emailContacto)"
+                  v-model="pisoDomicilio"
+                  @keyup="$emit('update:pisoDomicilio', pisoDomicilio)"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="Telefono"
+                  label="Departamento"
                   required
-                  v-model="telefonoContacto"
-                  @keyup="$emit('update:telefonoContacto', telefonoContacto)"
+                  v-model="departamentoDomicilio"
+                  @keyup="$emit('update:departamentoDomicilio', departamentoDomicilio)"
                 ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-              >
-                <v-select
-                  :items="[1,2,3]"
-                  label="Forma de Notificacion"
-                  required
-                  v-model="idsFormaNotificacionContacto"
-                  multiple
-                ></v-select>
               </v-col>
               <v-col
                 cols="12"
@@ -83,11 +71,11 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-  
+        
           <v-btn
             color="blue darken-1"
             text
-            @click="finalizar"
+            @click="dialog = false"
           >
             Save
           </v-btn>
@@ -102,13 +90,5 @@
     data: () => ({
       dialog: false,
     }),
-    methods:
-    {
-       finalizar: function() 
-      {
-        this.$emit('update:idsFormaNotificacionContacto', this.idsFormaNotificacionContacto)
-        this.dialog = false
-      },
-    },
   }
 </script>
