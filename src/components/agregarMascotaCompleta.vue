@@ -105,7 +105,6 @@
             color="blue darken-1"
             text
             @click="$emit('update:especieAnimalMascota', especieAnimalMascota)"
-            
           >
             Save
           </v-btn>

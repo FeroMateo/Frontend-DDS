@@ -83,11 +83,11 @@
                 sm="6"
               >
                 <v-select
-                  :items="['Whatsapp','SMS','E-Mail']"
+                  :items="[1,2,3]"
                   label="Forma de Notificacion"
                   required
                   v-model="idsFormaNotificacionContacto"
-                  @keyup="$emit('update:idsFormaNotificacionContacto', idsFormaNotificacionContacto)"
+                  multiple
                 ></v-select>
               </v-col>
               <v-col
@@ -113,7 +113,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="$emit('update:fechaPersona', fechaPersona)"
+            @click="botonGrande"
           >
             Save
           </v-btn>
@@ -128,5 +128,13 @@
     data: () => ({
       dialog: false,
     }),
+    methods:
+    {
+      botonGrande: function() 
+      {
+       this.$emit('update:idsFormaNotificacionContacto', this.idsFormaNotificacionContacto);
+       this.$emit('update:fechaPersona', this.fechaPersona);
+      }
+    }
   }
 </script>
