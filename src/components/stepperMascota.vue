@@ -169,6 +169,11 @@
         label="Especie"
         v-model="especieAnimal"
       ></v-select>
+
+      <agregar-caracteristicas
+      class="mt-5"
+      :caracteristicasElegidas.sync="caracteristicasElegidas"
+      ></agregar-caracteristicas>
     </v-col>
     </v-row>
     <!--AGREGAR FOTO Y CARACTERISTICA-->
@@ -208,6 +213,7 @@
 <script>
   import AgregarContacto from '../components/agregarContacto.vue'
   import AgregarDomicilio from '../components/agregarDomicilio.vue'
+  import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
 
   export default {
     data:() =>({
@@ -251,7 +257,7 @@
         sexo:"",
         descripcionFisica:"",
         pathsFotos:[],
-        caracteristicas:[],
+        caracteristicasElegidas:[],
       },
     },
 
@@ -259,6 +265,7 @@
     {
         AgregarContacto,
         AgregarDomicilio,
+        AgregarCaracteristicas,
     },
     methods:
     {
@@ -315,10 +322,7 @@
                         sexo:this.sexo,
                         descripcionFisica:this.descripcionFisica,
                         pathsFotos:[],
-                        caracteristicas:[{
-                          idCaracteristica:1,
-                          valor:"algo",
-                        }],
+                        caracteristicas:this.caracteristicasElegidas,
                          },
                     })
                 })

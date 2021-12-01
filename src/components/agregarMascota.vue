@@ -83,7 +83,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="$emit('update:especieAnimalMascota', especieAnimalMascota)"
+            @click="finalizar"
           >
             Save
           </v-btn>
@@ -102,6 +102,14 @@
     }),
     components:
     {
+    },
+    methods:
+    {
+      finalizar: function() 
+      {
+        this.$emit('update:especieAnimalMascota', this.especieAnimalMascota)
+        this.dialog = false
+      },
     }
   }
 </script>

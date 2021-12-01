@@ -100,7 +100,10 @@
         :especieAnimalMascota.sync="especieAnimalMascota"
         ></agregar-mascota>
 
-        
+        <agregar-caracteristicas
+        class="mt-7"
+        :caracteristicasElegidas.sync="caracteristicasElegidas"
+        ></agregar-caracteristicas>
 
         </v-col>
       </v-row>
@@ -121,6 +124,7 @@
 import AgregarContacto from '../components/agregarContacto.vue'
 import AgregarMascota from '../components/agregarMascota.vue'
 import AgregarDomicilio from '../components/agregarDomicilio.vue'
+import AgregarCaracteristicas from './agregarCaracteristicas.vue'
   export default {
     data: () => ({
 
@@ -141,6 +145,7 @@ import AgregarDomicilio from '../components/agregarDomicilio.vue'
         latitudMascota:"",
         longitudMascota:"",
         especieAnimalMascota:"",
+        caracteristicasElegidas:"",
 
         nombreRescatista:"",
         apellidoRescatista:"",
@@ -169,6 +174,7 @@ import AgregarDomicilio from '../components/agregarDomicilio.vue'
         AgregarContacto,
         AgregarMascota,
         AgregarDomicilio,
+        AgregarCaracteristicas,
     },
 
     methods:
@@ -220,11 +226,7 @@ import AgregarDomicilio from '../components/agregarDomicilio.vue'
                             direccion:this.direccionMascota,
                           },                         
                           especie:this.especieAnimalMascota,
-                          caracteristicas:[
-                          {
-                            idCaracteristica: 1,
-                            valor: "Algo"
-                          }],
+                          caracteristicas:this.caracteristicasElegidas,
                         },
                     })
                 })

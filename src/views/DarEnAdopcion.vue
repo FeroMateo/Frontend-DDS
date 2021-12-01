@@ -28,6 +28,7 @@
         :numeroDocumentoPersona.sync="numeroDocumentoPersona"
         :fechaPersona.sync="fechaPersona"
         :emailPersona.sync="emailPersona"
+        :idsFormaDeNotificacionPersona.sync="idsFormaDeNotificacionPersona"
 
         ></agregar-persona>
         <agregar-contacto
@@ -59,9 +60,14 @@
         :sexoMascota.sync="sexoMascota"
         :descripcionMascota.sync="descripcionMascota"
         :fotosMascota.sync="fotosMascota"
-        :caracteristicasMascota.sync="caracteristicasMascota"
         :especieAnimalMascota.sync="especieAnimalMascota"
         ></agregar-mascota-completa>
+
+        <agregar-caracteristicas
+        class="mt-7"
+        :caracteristicasElegidas.sync="caracteristicasElegidas"
+        ></agregar-caracteristicas>
+
         </v-col>
         
       </v-row>      
@@ -87,6 +93,7 @@
   import AgregarPersona from '../components/agregarPersona.vue'
   import AgregarContacto from '../components/agregarContacto.vue'
   import AgregarDomicilio from '../components/agregarDomicilio.vue'
+import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
 
 
   export default {
@@ -112,8 +119,9 @@
         fotosMascota:"",
         especieAnimalMascota:"",
         //CARACTERISTICAS ES  ID Y VALOR
-        caracteristicasMascota:"",
+        caracteristicasElegidas:"",
 
+        idsFormaDeNotificacionPersona:[],
         nombrePersona:"",
         apellidoPersona:"",
         tipoDocumentoPersona:"",
@@ -121,6 +129,7 @@
         emailPersona:"",
         numeroDocumentoPersona:"",
         fechaPersona:"",
+        
 
       valid: false,
       firstname: '',
@@ -142,6 +151,7 @@
       AgregarPersona,
       AgregarContacto,
       AgregarDomicilio,
+        AgregarCaracteristicas,
     },
     methods:
     {
@@ -172,14 +182,14 @@
                           },
                           telefono:this.telefonoPersona,
                           email:this.emailPersona,
-                          idsFormasDeNotificacion:[1,2],
+                          idsFormasDeNotificacion:this.idsFormaDeNotificacionPersona,
                           contactos:
                           [{
                             nombre:this.nombreContacto,
                             apellido:this.apellidoContacto,
                             email:this.emailContacto,
                             telefono:this.telefonoContacto,
-                            idsFormasDeNotificacion:[1,2],
+                            idsFormasDeNotificacion:this.idsFormaNotificacionContacto,
                           }],
                         },
                         mascotita:
@@ -191,11 +201,7 @@
                           sexo:this.sexoMascota,
                           descripcionFisica:this.descripcionMascota,
                           pathsFotos:[],
-                          caracteristicas:
-                          [{
-                            idCaracteristica:1,
-                            valor:"algo",
-                          }],
+                          caracteristicas:this.caracteristicasElegidas
                         },
                         mensaje:"No molestar"
                     })

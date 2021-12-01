@@ -83,17 +83,11 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+  
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
-          >
-            Close
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="$emit('update:idsFormaNotificacionContacto', idsFormaNotificacionContacto)"
+            @click="finalizar"
           >
             Save
           </v-btn>
@@ -108,5 +102,13 @@
     data: () => ({
       dialog: false,
     }),
+    methods:
+    {
+       finalizar: function() 
+      {
+        this.$emit('update:idsFormaNotificacionContacto', this.idsFormaNotificacionContacto)
+        this.dialog = false
+      },
+    },
   }
 </script>
