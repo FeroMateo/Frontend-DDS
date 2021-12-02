@@ -85,8 +85,9 @@ export default {
                 })
                     .then(response => response.json())
                     .then(datos => {
+                         console.log(datos.idSesion)
                         localStorage.setItem("IDSESION", datos.idSesion) //guarda ID
-                        console.log(datos.idSesion)
+                       
                     })
             },
   },

@@ -60,11 +60,13 @@
             required
           ></v-text-field>
           <v-select
-                  :items="[1,2,3]"
+                  :items="formasNotif"
+                  item-text="nombre"
                   label="Forma de Notificacion"
                   required
                   v-model="idsFormaNotificacionRescatista"
                   multiple
+                  return-object
                 ></v-select>
         </v-col>
 
@@ -127,6 +129,7 @@ import AgregarDomicilio from '../components/agregarDomicilio.vue'
 import AgregarCaracteristicas from './agregarCaracteristicas.vue'
   export default {
     data: () => ({
+        formasNotif:"",
 
         nombreContacto:"",
         apellidoContacto:"",
@@ -154,7 +157,7 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
         telefonoRescatista:"",
         emailRescatista:"",
         fechaRescate:"",
-        idsFormaNotificacionRescatista:"",
+        idsFormaNotificacionRescatista:[],
 
       valid: false,
       firstname: '',
@@ -179,6 +182,15 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
 
     methods:
     {
+      getNotif: function () {
+                fetch(process.env.VUE_APP_HOST+"/formas-de-noti", {
+                    method: "GET",
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                         this.formasNotif=datos
+                    })
+            },
     encontreMascotaSinChapita: function () {
                 fetch(process.env.VUE_APP_HOST+"/mascotas-perdidas", {
                     method: "POST",
@@ -198,7 +210,7 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
                           fechaNacimiento:this.fechaRescate,
                           telefono:this.telefonoRescatista,
                           email:this.emailRescatista,
-                          idsFormasDeNotificacion:this.idsFormaNotificacionRescatista,
+                          idsFormasDeNotificacion:this.idsFormaNotificacionRescatista.map(x=>x.id),
                           contactos:
                           [{
                             nombre:this.nombreContacto,
@@ -236,5 +248,9 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
                     })
             },
   },
+  beforeMount()
+    {
+      this.getNotif()
+    },
 }
 </script>

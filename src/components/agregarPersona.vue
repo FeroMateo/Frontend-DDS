@@ -83,11 +83,13 @@
                 sm="6"
               >
                 <v-select
-                  :items="[1,2,3]"
+                  :items="formasNotif"
+                  item-text="nombre"
                   label="Forma de Notificacion"
                   required
                   v-model="idsFormaDeNotificacionPersona"
                   multiple
+                  return-object
                 ></v-select>
               </v-col>
               <v-col
@@ -121,15 +123,30 @@
   export default {
     data: () => ({
       dialog: false,
+      formasNotif:[],
     }),
     methods:
     {
+
       botonGrande: function() 
       {
-       this.$emit('update:idsFormaDeNotificacionPersona', this.idsFormaDeNotificacionPersona);
+       this.$emit('update:idsFormaDeNotificacionPersona', this.idsFormaDeNotificacionPersona.map(x=>x.id));
        this.$emit('update:fechaPersona', this.fechaPersona);
        this.dialog = false
-      }
-    }
-  }
+      },
+      getNotif: function () {
+                fetch(process.env.VUE_APP_HOST+"/formas-de-noti", {
+                    method: "GET",
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                         this.formasNotif=datos
+                    })
+            },
+    },
+    beforeMount()
+    {
+      this.getNotif()
+    },
+}  
 </script>

@@ -106,7 +106,7 @@ export default
                 fetch(process.env.VUE_APP_HOST+"/gestion/mascotas-perdidas", {
                     method: "GET",
                     headers: {
-                        'Authorization':'8acd4b30-d9ab-4d53-bd60-2c5dcd57dfdb'
+                        'Authorization':localStorage.getItem('IDSESION')
                     },
                 })
                     .then(response => response.json())

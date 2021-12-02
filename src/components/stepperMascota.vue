@@ -95,11 +95,13 @@
       <v-row align="center">
       <v-col cols="12">
       <v-select
-        :items="servicios"
-        :menu-props="{ top: true, offsetY: true }"
-        label="Label"
-        multiple
-        v-model="idsFormasDeNotificacion"
+        :items="formasNotif"
+                  item-text="nombre"
+                  label="Forma de Notificacion"
+                  required
+                  v-model="idsFormasDeNotificacion"
+                  multiple
+                  return-object
       ></v-select>
 
      
@@ -191,7 +193,7 @@
   export default {
     data:() =>({
       e1:1,
-      servicios: [1,2,3],
+      formasNotif:[],
       especies:["GATO","PERRO"],
     }),
 
@@ -256,6 +258,15 @@
         {
             this.$router.push({ name: "Home"})
         },
+        getNotif: function () {
+                fetch(process.env.VUE_APP_HOST+"/formas-de-noti", {
+                    method: "GET",
+                })
+                    .then(response => response.json())
+                    .then(datos => {
+                         this.formasNotif=datos
+                    })
+            },
         login: function () {
                 fetch(process.env.VUE_APP_HOST+"/mascotas", {
                     method: "POST",
@@ -287,7 +298,7 @@
                           departamento:this.departamentoDomicilio,
                         },
                         fechaNacimiento:this.fechaNacimiento,
-                        idsFormasDeNotificacion:this.idsFormasDeNotificacion,
+                        idsFormasDeNotificacion:this.idsFormasDeNotificacion.map(x=>x.id),
                       },
                       mascotita:{
                         especieAnimal:this.especieAnimalMascota,
@@ -306,6 +317,10 @@
                         console.log(datos)
                     })
             },
+    },
+    beforeMount()
+    {
+      this.getNotif()
     },
 }
 </script>
