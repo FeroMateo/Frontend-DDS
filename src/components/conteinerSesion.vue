@@ -62,12 +62,13 @@ export default {
                         password: this.password
                     })
                 })
-                    //.then(response => response.json())
+                    .then(response => response.json())
                     .then(datos => {
 
                         if(datos!=null)
                         {
-                          localStorage.setItem('IDSESION',[datos]) //guarda ID
+                          localStorage.setItem('IDSESION',datos) //guarda ID
+                          console.log(localStorage.getItem('IDSESION'))
                           console.log(datos)
                           this.$router.push({ name: "RegistrarMascota"})
                         }else

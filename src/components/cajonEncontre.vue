@@ -92,7 +92,7 @@
 
         <agregar-mascota
         :descripcionMascota.sync="descripcionMascota"
-        :fotosMascota.sync="fotosMascota"
+        :fotoMascota.sync="fotoMascota"
         :ubicacionMascota.sync="ubicacionMascota"
         :latitudMascota.sync="latitudMascota"
         :longitudMascota.sync="longitudMascota"
@@ -140,7 +140,7 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
         departamentoDomicilio:"",
 
         descripcionMascota:"",
-        fotosMascota:[],
+        fotoMascota:"",
         direccionMascota:"",
         latitudMascota:"",
         longitudMascota:"",
@@ -218,7 +218,7 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
                         mascotitaPerdida:
                         {
                           descripcion:this.descripcionMascota,
-                          pathsFotos:this.fotosMascota,
+                          pathsFotos:[this.fotoMascota.contenidoBase64],
                           ubicacion:
                           {
                             latitud:this.latitudMascota,

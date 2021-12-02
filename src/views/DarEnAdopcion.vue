@@ -59,7 +59,7 @@
         :edadMascota.sync="edadMascota"
         :sexoMascota.sync="sexoMascota"
         :descripcionMascota.sync="descripcionMascota"
-        :fotosMascota.sync="fotosMascota"
+        :fotoMascota.sync="fotoMascota"
         :especieAnimalMascota.sync="especieAnimalMascota"
         ></agregar-mascota-completa>
 
@@ -116,7 +116,7 @@ import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
         edadMascota:"",
         sexoMascota:"",
         descripcionMascota:"",
-        fotosMascota:"",
+        fotoMascota:"",
         especieAnimalMascota:"",
         //CARACTERISTICAS ES  ID Y VALOR
         caracteristicasElegidas:"",
@@ -200,7 +200,7 @@ import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
                           edadAproximada:this.edadMascota,
                           sexo:this.sexoMascota,
                           descripcionFisica:this.descripcionMascota,
-                          pathsFotos:[],
+                          pathsFotos:[this.fotoMascota.contenidoBase64],
                           caracteristicas:this.caracteristicasElegidas
                         },
                         mensaje:"No molestar"

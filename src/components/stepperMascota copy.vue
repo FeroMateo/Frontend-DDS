@@ -131,23 +131,51 @@
         max-width="600"
         class="mx-auto"
     >
-      
-      <agregar-mascota-completa
-        class="mt-7"
-        :nombreMascota.sync="nombreMascota"
-        :apodoMascota.sync="apodoMascota"
-        :edadMascota.sync="edadMascota"
-        :sexoMascota.sync="sexoMascota"
-        :descripcionMascota.sync="descripcionMascota"
-        :fotoMascota.sync="fotoMascota"
-        :especieAnimalMascota.sync="especieAnimalMascota"
-      ></agregar-mascota-completa>
+    <v-text-field
+        label="Nombre"
+        required
+        v-model="nombreM"
+    ></v-text-field>
+
+    <v-text-field
+        label="Apodo"
+        required
+        v-model="apodo"
+    ></v-text-field>
+
+    <v-text-field
+        label="Edad Aproximada"
+        required
+        v-model="edadAproximada"
+    ></v-text-field>
+
+    <v-text-field
+        label="Sexo"
+        required
+        v-model="sexo"
+    ></v-text-field>
+
+    <v-text-field
+        label="Descripcion Aproximada"
+        required
+        v-model="descripcionFisica"
+    ></v-text-field>
+  
+    <v-row align="center">
+    <v-col cols="12">
+      <v-select
+        :items="especies"
+        :menu-props="{ top: true, offsetY: true }"
+        label="Especie"
+        v-model="especieAnimal"
+      ></v-select>
 
       <agregar-caracteristicas
       class="mt-5"
       :caracteristicasElegidas.sync="caracteristicasElegidas"
       ></agregar-caracteristicas>
-    
+    </v-col>
+    </v-row>
     <!--AGREGAR FOTO Y CARACTERISTICA-->
     
     </v-card>
@@ -186,7 +214,6 @@
   import AgregarContacto from '../components/agregarContacto.vue'
   import AgregarDomicilio from '../components/agregarDomicilio.vue'
   import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
-  import AgregarMascotaCompleta from '../components/agregarMascotaCompleta.vue'
 
   export default {
     data:() =>({
@@ -223,15 +250,14 @@
         },
       },
       mascotita:{
-        nombreMascota:"",
-        apodoMascota:"",
-        edadMascota:"",
-        sexoMascota:"",
-        descripcionMascota:"",
+        especieAnimal:"",
+        nombreM:"",
+        apodo:"",
+        edadAproximada:"",
+        sexo:"",
+        descripcionFisica:"",
         fotoMascota:"",
-        especieAnimalMascota:"",
-        //CARACTERISTICAS ES  ID Y VALOR
-        caracteristicasElegidas:"",
+        caracteristicasElegidas:[],
       },
     },
 
@@ -240,7 +266,6 @@
         AgregarContacto,
         AgregarDomicilio,
         AgregarCaracteristicas,
-        AgregarMascotaCompleta,
     },
     methods:
     {
@@ -290,13 +315,13 @@
                         idsFormasDeNotificacion:this.idsFormasDeNotificacion,
                       },
                       mascotita:{
-                        especieAnimal:this.especieAnimalMascota,
-                        nombre:this.nombreMascota,
-                        apodo:this.apodoMascota,
-                        edadAproximada:this.edadMascota,
-                        sexo:this.sexoMascota,
-                        descripcionFisica:this.descripcionMascota,
-                        pathsFotos:[this.fotoMascota.contenidoBase64],
+                        especieAnimal:this.especieAnimal,
+                        nombre:this.nombreM,
+                        apodo:this.apodo,
+                        edadAproximada:this.edadAproximada,
+                        sexo:this.sexo,
+                        descripcionFisica:this.descripcionFisica,
+                        pathsFotos:[this.fotoMascota],
                         caracteristicas:this.caracteristicasElegidas,
                          },
                     })
