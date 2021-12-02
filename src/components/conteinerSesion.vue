@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto" max-width="400">
-    <v-toolbar color="#FFEEBD">
+    <v-toolbar color="#1976D2">
       <v-toolbar-title>IniciarSesion</v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -33,7 +33,7 @@
         ></v-text-field>
         </v-col>
 
-        <v-btn @click="login">Login</v-btn>
+        <v-btn @click="login" color="#1976D2">Login</v-btn>
 
     </v-container>
       </div>
@@ -55,19 +55,20 @@ export default {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
-                        "Access-Control-Allow-Origin": "*",
+                        
                     },
                     body: JSON.stringify({
                         username: this.usuario,
                         password: this.password
                     })
                 })
-                    //.then(response => response.json())
+                    .then(response => response.json())
                     .then(datos => {
 
                         if(datos!=null)
                         {
-                          localStorage.setItem('IDSESION',[datos]) //guarda ID
+                          localStorage.setItem('IDSESION',datos.idSesion) //guarda ID
+                          console.log(localStorage.getItem('IDSESION'))
                           console.log(datos)
                           this.$router.push({ name: "RegistrarMascota"})
                         }else
@@ -84,8 +85,9 @@ export default {
                 })
                     .then(response => response.json())
                     .then(datos => {
+                         console.log(datos.idSesion)
                         localStorage.setItem("IDSESION", datos.idSesion) //guarda ID
-                        console.log(datos.idSesion)
+                       
                     })
             },
   },

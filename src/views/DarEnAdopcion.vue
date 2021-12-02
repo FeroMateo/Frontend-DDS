@@ -47,10 +47,7 @@
         :departamentoDomicilio.sync="departamentoDomicilio"
         ></agregar-domicilio>
         </v-col>
-        <v-img
-          max-width="200"
-          src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
-        ></v-img>  
+
         <v-col>
         <agregar-mascota-completa
         class="mt-7"
@@ -59,7 +56,7 @@
         :edadMascota.sync="edadMascota"
         :sexoMascota.sync="sexoMascota"
         :descripcionMascota.sync="descripcionMascota"
-        :fotosMascota.sync="fotosMascota"
+        :fotoMascota.sync="fotoMascota"
         :especieAnimalMascota.sync="especieAnimalMascota"
         ></agregar-mascota-completa>
 
@@ -93,7 +90,7 @@
   import AgregarPersona from '../components/agregarPersona.vue'
   import AgregarContacto from '../components/agregarContacto.vue'
   import AgregarDomicilio from '../components/agregarDomicilio.vue'
-import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
+  import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
 
 
   export default {
@@ -116,7 +113,7 @@ import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
         edadMascota:"",
         sexoMascota:"",
         descripcionMascota:"",
-        fotosMascota:"",
+        fotoMascota:"",
         especieAnimalMascota:"",
         //CARACTERISTICAS ES  ID Y VALOR
         caracteristicasElegidas:"",
@@ -200,7 +197,7 @@ import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
                           edadAproximada:this.edadMascota,
                           sexo:this.sexoMascota,
                           descripcionFisica:this.descripcionMascota,
-                          pathsFotos:[],
+                          pathsFotos:[this.fotoMascota.contenidoBase64],
                           caracteristicas:this.caracteristicasElegidas
                         },
                         mensaje:"No molestar"

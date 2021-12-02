@@ -70,6 +70,7 @@
                 label="Agregar Fotos"
                 filled
                 prepend-icon="mdi-camera"
+                v-model="fotoMascota"
               ></v-file-input>
               <!-- AGREGAR CARACTERISTICAS -->
               </v-col>
@@ -112,15 +113,42 @@
   export default {
     data: () => ({
       dialog: false,
-      especies:["PERRO","GATO"]
+      especies:["PERRO","GATO"],
+      fotoCambiada:"",
+
     }),
     methods:
     {
-      finalizar: function() 
-      {
-        this.$emit('update:especieAnimalMascota', this.especieAnimalMascota)
-        this.dialog = false
-      }
+      subirFoto: function (file) {
+                this.getBase64(file)
+                    .then(img => {
+                        var request = {
+                            //nombre: file.name,
+                            contenidoBase64: img
+                        }
+                        console.dir(request)
+                        this.$emit('update:fotoMascota', request)
+
+                    })
+            },
+            getBase64: function (file) {
+                return new Promise((resolve, reject) => {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function () {
+                        resolve(reader.result)
+                    };
+                    reader.onerror = function (error) {
+                        reject('Error: ', error);
+                    }
+                })
+            },
+            finalizar: function() 
+            {
+              this.$emit('update:especieAnimalMascota', this.especieAnimalMascota)
+              this.subirFoto(this.fotoMascota)
+              this.dialog = false
+            }
     },
   }
 </script>
