@@ -47,10 +47,7 @@
         :departamentoDomicilio.sync="departamentoDomicilio"
         ></agregar-domicilio>
         </v-col>
-        <v-img
-          max-width="200"
-          src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
-        ></v-img>  
+
         <v-col>
         <agregar-mascota-completa
         class="mt-7"
@@ -93,7 +90,7 @@
   import AgregarPersona from '../components/agregarPersona.vue'
   import AgregarContacto from '../components/agregarContacto.vue'
   import AgregarDomicilio from '../components/agregarDomicilio.vue'
-import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
+  import AgregarCaracteristicas from '../components/agregarCaracteristicas.vue'
 
 
   export default {

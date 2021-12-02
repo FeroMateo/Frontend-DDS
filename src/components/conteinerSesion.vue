@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto" max-width="400">
-    <v-toolbar color="#FFEEBD">
+    <v-toolbar color="#1976D2">
       <v-toolbar-title>IniciarSesion</v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -33,7 +33,7 @@
         ></v-text-field>
         </v-col>
 
-        <v-btn @click="login">Login</v-btn>
+        <v-btn @click="login" color="#1976D2">Login</v-btn>
 
     </v-container>
       </div>
