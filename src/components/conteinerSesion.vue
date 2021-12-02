@@ -55,7 +55,7 @@ export default {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
-                        "Access-Control-Allow-Origin": "*",
+                        
                     },
                     body: JSON.stringify({
                         username: this.usuario,
@@ -67,7 +67,7 @@ export default {
 
                         if(datos!=null)
                         {
-                          localStorage.setItem('IDSESION',datos) //guarda ID
+                          localStorage.setItem('IDSESION',datos.idSesion) //guarda ID
                           console.log(localStorage.getItem('IDSESION'))
                           console.log(datos)
                           this.$router.push({ name: "RegistrarMascota"})
