@@ -58,27 +58,14 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn
-                color="green lighten-2"
-                text
-                @click='aprobar'
-              >
-                Aprobar
-              </v-btn>
-              <v-btn
-                color="red lighten-2"
-                text
-                @click="rechazar"
-              >
-                Rechazar
-              </v-btn>
+              
             </v-card-actions>
           </v-card>
           
       </v-slide-item>
       
     </v-slide-group>
-    <v-btn class="mb-5 mr-5" @click="postMascotasRescatadas"> Confirmar Publicacion</v-btn>
+    <v-btn class="mb-5 mr-5" @click="postMascotasRescatadas"> Volver</v-btn>
   </v-sheet>
 </template>
 
@@ -108,11 +95,8 @@ export default
             publicacion.estaAprobada=false
         },
         getMascotasRescatadas: function () {
-                fetch(process.env.VUE_APP_HOST+"/gestion/mascotas-perdidas", {
+                fetch(process.env.VUE_APP_HOST+"/mascotas-perdidas", {
                     method: "GET",
-                    headers: {
-                        'Authorization':localStorage.getItem('IDSESION')
-                    },
                 })
                     .then(response => response.json())
                     .then(datos => {
@@ -121,19 +105,7 @@ export default
                     })
                 },
           postMascotasRescatadas: function () {
-                fetch(process.env.VUE_APP_HOST+"/mascotas-perdidas", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        publicaciones:this.publicaciones
-                    })
-                })
-                    .then(response => response.json())
-                    .then(datos => {
-                        console.log(datos)
-                    })
+                this.$router.push({ name: "Login"})
             },
     },
      beforeMount()
