@@ -65,7 +65,7 @@ export default {
                     .then(response => response.json())
                     .then(datos => {
 
-                        if(datos!=null)
+                        if(datos.idSesion!=null)
                         {
                           localStorage.setItem('IDSESION',datos.idSesion) //guarda ID
                           console.log(localStorage.getItem('IDSESION'))

@@ -192,6 +192,7 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
                     })
             },
     encontreMascotaSinChapita: function () {
+
                 fetch(process.env.VUE_APP_HOST+"/mascotas-perdidas", {
                     method: "POST",
                     headers: {
@@ -250,6 +251,7 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
   },
   beforeMount()
     {
+      
       this.getNotif()
     },
 }

@@ -18,7 +18,7 @@
 
       <span class="group pa-2">
         <v-btn icon>
-          <v-icon x-large>mdi-home</v-icon>
+          <v-icon @click="push_home" >mdi-home</v-icon>
         </v-btn>
       </span>
 
@@ -36,3 +36,18 @@
     </v-sheet>
   </v-card>
 </template>
+
+<script>
+export default
+{
+    data: () => ({
+    }),
+    methods:
+    {
+        push_home: function()
+        {
+            window.location.href = "https://tp-dds-g7.herokuapp.com/"
+        },
+    } 
+}
+</script>
