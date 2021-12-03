@@ -9,14 +9,14 @@
   >
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="text-overline mb-4">
-          BIENVENID@S A LA RRP DE DISEÑO DE SISTEMAS 2021!
-        </div>
+        <v-list-item-title>BIENVENID@S A RESCATE DE PATITAS!!!</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
     <v-card-actions>
-      <v-btn
+      <v-row>
+        <v-col>
+<v-btn
         outlined
         rounded
         text
@@ -48,7 +48,8 @@
       >
         Mascotas sin dueño
       </v-btn>
-      <v-btn
+        </v-col>
+        <v-btn
         outlined
         rounded
         text
@@ -80,6 +81,9 @@
       >
         Mascotas para aprobar
       </v-btn>
+      </v-row>
+      
+      
     </v-card-actions>
   </v-card>
 </template>

@@ -61,14 +61,14 @@
               <v-btn
                 color="green lighten-2"
                 text
-                @click='aprobar'
+                @click='aprobar(this)'
               >
                 Aprobar
               </v-btn>
               <v-btn
                 color="red lighten-2"
                 text
-                @click="rechazar"
+                @click="rechazar(this)"
               >
                 Rechazar
               </v-btn>
@@ -118,6 +118,7 @@ export default
                     .then(datos => {
                         this.publicaciones=datos
                         console.log(datos)
+                        
                     })
                 },
           postMascotasRescatadas: function () {

@@ -246,6 +246,7 @@ import AgregarCaracteristicas from './agregarCaracteristicas.vue'
                     .then(response => response.json())
                     .then(datos => {
                         console.log(datos)
+                        window.location.href = "https://tp-dds-g7.herokuapp.com/"
                     })
             },
   },
