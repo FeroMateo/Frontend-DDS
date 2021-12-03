@@ -70,7 +70,7 @@ export default {
                           localStorage.setItem('IDSESION',datos.idSesion) //guarda ID
                           console.log(localStorage.getItem('IDSESION'))
                           console.log(datos)
-                          this.$router.push({ name: "RegistrarMascota"})
+                          window.location.href = "https://tp-dds-g7.herokuapp.com/"
                         }else
                         {
                           console.warn("ERROR")
