@@ -3,12 +3,8 @@ const serveStatic = require("serve-static")
 const path = require('path');
 app = express();
 app.use(serveStatic(path.join(__dirname, 'dist')));
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
-  });
+app.use('*', (req, res, next) => {
+    res.sendFile(path.join(__dirname, 'https://tp-dds-g7.herokuapp.com/'));
+});
 const port = process.env.PORT || 80;
 app.listen(port);
